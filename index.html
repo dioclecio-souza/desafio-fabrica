@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>Desafio Workshop</title>
+</head>
+<body>
+    <div class="header">
+        <header>
+            <img src="./js3.jpg" alt="JS3">
+            <img src="./js2.jpg" alt="JS1">
+        </header>
+    </div>
+    <div class="container">
+        <section class="users">
+            <header>
+                <h1>Usuários</h1>
+                <div class="button">
+                    <button onclick="atualizarUsers()">
+                        Atualizar
+                    </button>
+                </div>
+            </header>
+            <div class="usersDiv">
+            </div>
+        </section>
+    </div>
+</body>
+<script>
+    const usersDiv = document.querySelector('.usersDiv')
+
+    const usersUl = document.createElement('ul')
+    usersDiv.appendChild(usersUl)
+
+    function getUsers(){
+        fetch('https://api.randomuser.me/?results=10')
+        .then(response => response.json())
+        .then(data => {
+            for(i=0;i<data.results.length;i++) {
+                const nameUsers = data.results[i].name.first
+
+                const usersLi = document.createElement('li')
+                usersLi.innerText = nameUsers
+                usersUl.appendChild(usersLi)
+            }
+        })
+    }
+getUsers()
+
+function clearUsers(){
+    usersUl.innerHTML = ""
+}
+
+function atualizarUsers(){
+    clearUsers()
+    getUsers()
+}
+</script>
+
+</html>
